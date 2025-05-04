@@ -12,11 +12,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: create environment variable file
-        run: |
-          touch .env
-          echo "${{ secrets.ENV }}" >> .env
-
       - name: build
         run: sh ./build.sh
         
