@@ -4,7 +4,6 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronRight, MessageCircle, Star, Phone, Twitter, Facebook, Instagram } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
-import { MobileMenu } from "@/components/mobile-menu"
 import { EmailForm } from "@/components/email-form"
 import { trackEnrollClick } from "@/lib/analytics"
 import { useRef } from "react"
@@ -52,7 +51,7 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 overflow-hidden relative">
+        <section className="w-full py-5 overflow-hidden relative">
           {/* Background decoration */}
           <div className="absolute inset-0 bg-gradient-to-b from-sky-50/50 to-white pointer-events-none"></div>
 
