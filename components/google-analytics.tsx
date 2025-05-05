@@ -5,7 +5,7 @@ import { useEffect } from "react"
 import { initScrollTracking } from "@/lib/analytics"
 
 // Replace with your actual Google Analytics ID
-const GA_MEASUREMENT_ID = "G-P021JNNJJQ"
+const GA_MEASUREMENT_ID = process.env.GOOGLE_ANALYTICS_ID
 
 export function GoogleAnalytics() {
   // Initialize scroll tracking when component mounts
