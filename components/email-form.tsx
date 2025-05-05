@@ -82,7 +82,7 @@ export function EmailForm() {
           <Input
             type="email"
             placeholder={t("cta.emailPlaceholder")}
-            className="w-full border-sky-200 focus-visible:ring-sky-500"
+            className="w-full border-[#6568ff] focus-visible:ring-[#4c4ed9]"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -95,7 +95,7 @@ export function EmailForm() {
           <Label htmlFor="comment-input">{t("cta.commentLabel")}</Label>
           <Textarea
             placeholder={t("cta.commentPlaceholder")}
-            className="w-full min-h-[80px] border-sky-200 focus-visible:ring-sky-500"
+            className="w-full min-h-[80px] border-[#6568ff] focus-visible:ring-[#4c4ed9]"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             disabled={isSubmitting}
@@ -104,7 +104,7 @@ export function EmailForm() {
           <p className="text-xs text-muted-foreground">{t("cta.commentOptional")}</p>
         </div>
 
-        <Button type="submit" className="w-full bg-sky-600 hover:bg-sky-700" disabled={isSubmitting}>
+        <Button type="submit" className="w-full bg-[#6568ff] hover:bg-[#4c4ed9]" disabled={isSubmitting}>
           {isSubmitting ? t("cta.submitting") : t("cta.signUp")}
         </Button>
       </form>

@@ -50,7 +50,7 @@ export async function POST(request: Request) {
       range: `${SHEET_NAME}!A:C`,
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[email, comment || "", new Date().toISOString()]],
+        values: [[email, comment || "", new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })]],
       },
     })
 
