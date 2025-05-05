@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ChevronRight, MessageCircle, Star, Phone, Twitter, Facebook, Instagram } from "lucide-react"
+import { ChevronRight, MessageCircle, Star, Phone } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import { EmailForm } from "@/components/email-form"
 import { trackEnrollClick } from "@/lib/analytics"
@@ -174,32 +174,6 @@ export default function LandingPage() {
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <div className="flex items-center gap-2">
             <p className="text-sm font-medium">{t("footer.rights")}</p>
-          </div>
-
-          {/* Footer links removed */}
-
-          <div className="flex items-center gap-4">
-            <button
-              className="text-muted-foreground hover:text-[#d2cbf8]"
-              onClick={() => handleEnrollClick("footer_twitter")}
-            >
-              <Twitter className="h-5 w-5" />
-              <span className="sr-only">Twitter</span>
-            </button>
-            <button
-              className="text-muted-foreground hover:text-[#d2cbf8]"
-              onClick={() => handleEnrollClick("footer_facebook")}
-            >
-              <Facebook className="h-5 w-5" />
-              <span className="sr-only">Facebook</span>
-            </button>
-            <button
-              className="text-muted-foreground hover:text-[#d2cbf8]"
-              onClick={() => handleEnrollClick("footer_instagram")}
-            >
-              <Instagram className="h-5 w-5" />
-              <span className="sr-only">Instagram</span>
-            </button>
           </div>
         </div>
       </footer>
