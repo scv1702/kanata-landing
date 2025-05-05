@@ -11,6 +11,7 @@ import { useLanguage } from "@/contexts/language-context"
 import { trackEmailSubmit } from "@/lib/analytics"
 import { useToast } from "@/hooks/use-toast"
 import { SuccessDialog } from "@/components/success-dialog"
+import { useSearchParams } from "next/navigation"
 
 export function EmailForm() {
   const { t } = useLanguage()
@@ -20,23 +21,30 @@ export function EmailForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccessDialog, setShowSuccessDialog] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const searchParams = useSearchParams();
 
+  const validEmail = () => {
     if (!email || !email.includes("@")) {
       toast({
         title: "Invalid email",
         description: "Please enter a valid email address",
         variant: "destructive",
       })
-      return
+      return ;
     }
+  }
 
-    setIsSubmitting(true)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    validEmail();
+    setIsSubmitting(true);
 
     try {
       // Track the email submission event
       trackEmailSubmit(email)
+      
+      const campaign = searchParams.get("utm_campaign");
 
       // Submit email and comment using the API route
       const response = await fetch("/api/submit-email", {
@@ -44,7 +52,7 @@ export function EmailForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, comment }),
+        body: JSON.stringify({ email, comment, campaign }),
       })
 
       const data = await response.json()
@@ -70,7 +78,7 @@ export function EmailForm() {
         variant: "destructive",
       })
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   }
 

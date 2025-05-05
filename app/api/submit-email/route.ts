@@ -4,7 +4,7 @@ import { google } from "googleapis"
 export async function POST(request: Request) {
   try {
     // Parse the request body to get the email and comment
-    const { email, comment } = await request.json()
+    const { email, comment, campaign } = await request.json();
 
     if (!email || !email.includes("@")) {
       return NextResponse.json({ error: "Valid email is required" }, { status: 400 })
@@ -50,7 +50,12 @@ export async function POST(request: Request) {
       range: `${SHEET_NAME}!A:C`,
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[email, comment || "", new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })]],
+        values: [[
+          email, 
+          comment || "",
+          campaign || "",
+          new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })
+        ]],
       },
     })
 
