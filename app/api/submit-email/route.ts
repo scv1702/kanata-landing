@@ -10,6 +10,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Valid email is required" }, { status: 400 })
     }
 
+    if (campaign && (campaign !== "kanata-light" && campaign !== "kanata-heavy")) {
+      return NextResponse.json({ error: "Invalid campaign" }, { status: 400 });
+    }
+
     console.log("Received submission:", { email, comment: comment || "(No comment)" })
 
     // Get environment variables

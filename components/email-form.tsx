@@ -23,28 +23,44 @@ export function EmailForm() {
 
   const searchParams = useSearchParams();
 
-  const validEmail = () => {
+  const validateEmail = () => {
     if (!email || !email.includes("@")) {
       toast({
         title: "Invalid email",
         description: "Please enter a valid email address",
         variant: "destructive",
       })
-      return ;
+      return false;
     }
+    return true;
+  }
+
+  const validateCampaign = (campaign: string | null) => {
+    if (campaign && (campaign !== "kanata-light" && campaign !== "kanata-heavy")) {
+      toast({
+        title: "Invalid campaign",
+        description: "The campaign parameter is invalid",
+        variant: "destructive",
+      })
+      return false;
+    }
+    return true;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    validEmail();
+    const campaign = searchParams.get("utm_campaign");
+
+    if (!validateEmail() || !validateCampaign(campaign)) {
+      return ;
+    }
+
     setIsSubmitting(true);
 
     try {
       // Track the email submission event
-      trackEmailSubmit(email)
-      
-      const campaign = searchParams.get("utm_campaign");
+      trackEmailSubmit(email);
 
       // Submit email and comment using the API route
       const response = await fetch("/api/submit-email", {
