@@ -173,8 +173,6 @@ export default function LandingPage() {
       <footer className="w-full border-t py-6 md:py-0 bg-sky-50">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <div className="flex items-center gap-2">
-            {/* Footer Logo - Same as header logo */}
-            <Image src="/logo.png" alt="Kanata Logo" width={30} height={30} className="rounded-md object-cover" />
             <p className="text-sm font-medium">{t("footer.rights")}</p>
           </div>
 
