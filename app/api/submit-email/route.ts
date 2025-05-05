@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { google } from "googleapis"
+import { sendToDiscord } from "@/app/api/submit-email/discord"
 
 export async function POST(request: Request) {
   try {
@@ -49,7 +50,7 @@ export async function POST(request: Request) {
 
     // Append the email and comment to the spreadsheet
     // Include timestamp as the third column
-    const response = await sheets.spreadsheets.values.append({
+    sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
       range: `${SHEET_NAME}!A:C`,
       valueInputOption: "USER_ENTERED",
@@ -61,10 +62,58 @@ export async function POST(request: Request) {
           new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })
         ]],
       },
-    })
-
-    console.log("Spreadsheet API response:", response.status, response.statusText)
-
+    }).then(() => {
+      const payload = {
+        embeds: [
+          {
+            title: "📬 새로운 사전 예약이 접수되었습니다!",
+            fields: [
+              {
+                name: "📧 이메일",
+                value: email
+              },
+              {
+                name: "💬 의견",
+                value: comment || '(의견 없음)'
+              },
+              {
+                name: "🎯 캠페인",
+                value: campaign || '(캠페인 없음)'
+              },
+            ],
+          }
+        ]
+      };
+      sendToDiscord(payload);
+    }).catch((error) => {
+      const payload = {
+        embeds: [
+          {
+            title: "⚠️ 오류가 발생했습니다.",
+            fields: [
+              {
+                name: "📧 이메일",
+                value: email
+              },
+              {
+                name: "💬 의견",
+                value: comment || '(의견 없음)'
+              },
+              {
+                name: "🎯 캠페인",
+                value: campaign || '(캠페인 없음)'
+              },
+              {
+                name: "⚠️ 오류 메시지",
+                value: error.message || '(오류 메시지 없음)'
+              }
+            ],
+          }
+        ]
+      };
+      sendToDiscord(payload);
+    });
+      
     return NextResponse.json({
       success: true,
       message: "Submission successful",
