@@ -36,8 +36,7 @@ export default function LandingPage() {
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
             {/* Logo Image */}
-            <Image src="/logo.png" alt="Kanata Logo" width={40} height={40} className="rounded-md object-cover" />
-            <span className="text-xl font-bold">Kanata</span>
+            <Image src="/logo.png" alt="Kanata Logo" width={150} height={150} className="rounded-md object-cover" />
           </div>
 
           <div className="hidden md:flex items-center gap-4">
